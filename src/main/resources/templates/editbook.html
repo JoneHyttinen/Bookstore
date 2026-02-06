@@ -1,11 +1,12 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Booklist</title>
+    <title>Edit book</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
 </head>
 <body>
-	<h1>Add book</h1>
+	<h1>Edit book</h1>
 	<div>
 		<!-- FORM -->
 		<form th:object="${book}" th:action="@{/save}" action="#" method="post">
