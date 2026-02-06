@@ -9,6 +9,7 @@
 	<div>
 		<!-- FORM -->
 		<form th:object="${book}" th:action="@{/save}" action="#" method="post">
+			<input type="hidden" th:field="*{id}" />
 		  	<label for="title">Title</label>
 			<input type="text" id="fname" th:field="*{title}" />
 			<div style="clear: both; display: block; height: 10px;"></div>

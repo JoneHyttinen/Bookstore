@@ -1,5 +1,7 @@
 package hh.bookstore.sof3.web;
 
+import java.util.Optional;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -34,6 +36,16 @@ public class BookController {
     public String save(Book book) {
         repository.save(book);
         return "redirect:booklist";
+    }
+
+    @GetMapping("/edit/{id}")
+    public String editBook(@PathVariable Long id, Model model) {
+        Optional<Book> bookOpt = repository.findById(id);
+        if (bookOpt.isEmpty()) {
+            return "redirect:/booklist";
+        }
+        model.addAttribute("book", bookOpt.get());
+        return "editbook"; // editbook.html
     }
 
     @GetMapping("/delete/{id}")
