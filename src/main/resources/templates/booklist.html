@@ -1,0 +1,23 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <title>Bookstore</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  </head>
+  <body>
+    <h1>Welcome to the bookstore!</h1>
+    <h3>Our books</h3>
+    <table>
+      <tr>
+        <th>Book</th>
+      </tr>
+      <tr th:each="book : ${books}">
+        <td
+          th:text="${book.title + ', ' + book.author + ', Price: ' + #numbers.formatDecimal(book.price, 1, 2) + ' €'}"
+        ></td>
+        <td><a th:href="@{/delete/{id}(id=${book.id})}">Delete</a></td>
+      </tr>
+    </table>
+    <a href="/add">Add Book</a>
+  </body>
+</html>

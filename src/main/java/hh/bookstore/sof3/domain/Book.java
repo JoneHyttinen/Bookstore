@@ -1,24 +1,33 @@
 package hh.bookstore.sof3.domain;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+
+@Entity
 public class Book {
-    String title;
-    String author;
-    int publicationYear;
-    String isbn;
-    float price;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+    private String title;
+    private String author;
+    private int publishedYear;
+    private String isbn;
+    private float price;
 
     public Book() {
         title = null;
         author = null;
-        publicationYear = 0;
+        publishedYear = 0;
         isbn = null;
         price = 0.0F;
     }
 
-    public Book(String title, String author, int publicationYear, String isbn, float price) {
+    public Book(String title, String author, int publishedYear, String isbn, float price) {
         this.title = title;
         this.author = author;
-        this.publicationYear = publicationYear;
+        this.publishedYear = publishedYear;
         this.isbn = isbn;
         this.price = price;
     }
@@ -31,8 +40,8 @@ public class Book {
         this.author = author;
     }
 
-    public void setPublicationYear(int publicationYear) {
-        this.publicationYear = publicationYear;
+    public void setPublishedYear(int publishedYear) {
+        this.publishedYear = publishedYear;
     }
 
     public void setIsbn(String isbn) {
@@ -43,6 +52,14 @@ public class Book {
         this.price = price;
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public String getTitle() {
         return title;
     }
@@ -51,8 +68,8 @@ public class Book {
         return author;
     }
 
-    public int getPublicationYear() {
-        return publicationYear;
+    public int getPublishedYear() {
+        return publishedYear;
     }
 
     public String getIsbn() {
@@ -61,5 +78,11 @@ public class Book {
 
     public float getPrice() {
         return price;
+    }
+
+    @Override
+    public String toString() {
+        return "Book [title=" + title + ", author=" + author + ", publishedYear=" + publishedYear + ", isbn=" + isbn
+                + ", price=" + price + "]";
     }
 }

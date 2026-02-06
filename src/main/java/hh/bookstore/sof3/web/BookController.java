@@ -1,26 +1,45 @@
 package hh.bookstore.sof3.web;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import hh.bookstore.sof3.domain.Book;
+import hh.bookstore.sof3.domain.BookRepository;
 
 @Controller
 public class BookController {
-    private List<Book> books = new ArrayList<>();
 
-    public BookController() {
-        books.add(new Book("The Myth of Sisyphus", "Albert Camus", 1942, "978-0-525-56445-4", 15.30F));
-        books.add(new Book("To Your Eternity 1", "Yoshitoki Oima", 2017, "978-1-63236-571-2", 13.40F));
+    private final BookRepository repository;
+
+    public BookController(BookRepository bookRepository) {
+        this.repository = bookRepository;
     }
 
-    @GetMapping("/index")
+    @GetMapping("/booklist")
     public String getBooks(Model model) {
-        model.addAttribute("books", books);
-        return "index"; // index.html
+        model.addAttribute("books", repository.findAll());
+        return "booklist"; // booklist.html
     }
+
+    @GetMapping("/add")
+    public String addBook(Model model) {
+        model.addAttribute("book", new Book());
+        return "addbook"; // addbook.html
+    }
+
+    @PostMapping("/save")
+    public String save(Book book) {
+        repository.save(book);
+        return "redirect:booklist";
+    }
+
+    @GetMapping("/delete/{id}")
+    public String deleteBook(@PathVariable Long id) {
+        repository.deleteById(id);
+        return "redirect:../booklist";
+    }
+
 }
