@@ -21,27 +21,27 @@ public class BookstoreApplication {
 	}
 
 	@Bean
-	public CommandLineRunner seedBooks(BookRepository bookRepository) {
+	public CommandLineRunner seedBooks(BookRepository bookRepository, CategoryRepository categoryRepository) {
 		return args -> {
+			log.info("Save some sample categories");
+			Category category1 = new Category("Philosophy");
+			categoryRepository.save(category1);
+			Category category2 = new Category("Fantasy");
+			categoryRepository.save(category2);
+			Category category3 = new Category("Action");
+			categoryRepository.save(category3);
+
 			log.info("Save some sample books");
-			bookRepository.save(new Book("The Myth of Sisyphus", "Albert Camus", 1942, "9780525564454", 12.99F));
 			bookRepository
-					.save(new Book("The Sickness unto Death", "Søren Kierkegaard", 1849, "9781324091240", 10.99F));
+					.save(new Book("The Myth of Sisyphus", "Albert Camus", 1942, "9780525564454", 12.99F, category1));
+			bookRepository
+					.save(new Book("The Sickness unto Death", "Søren Kierkegaard", 1849, "9781324091240", 10.99F,
+							category1));
 
 			log.info("Fetch all the books");
 			for (Book book : bookRepository.findAll()) {
 				log.info(book.toString());
 			}
-		};
-	}
-
-	@Bean
-	public CommandLineRunner seedCategories(CategoryRepository categoryRepository) {
-		return args -> {
-			log.info("Save some sample categories");
-			categoryRepository.save(new Category("Philosophy"));
-			categoryRepository.save(new Category("Fantasy"));
-			categoryRepository.save(new Category("Action"));
 
 			log.info("Fetch all the categories");
 			for (Category category : categoryRepository.findAll()) {
