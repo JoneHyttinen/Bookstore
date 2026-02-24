@@ -49,6 +49,7 @@ public class BookController {
             return "redirect:/booklist";
         }
         model.addAttribute("book", bookOpt.get());
+        model.addAttribute("categories", cRepository.findAll());
         return "editbook"; // editbook.html
     }
 
