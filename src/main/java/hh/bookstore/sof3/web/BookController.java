@@ -3,6 +3,7 @@ package hh.bookstore.sof3.web;
 import java.util.Optional;
 
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,8 +26,14 @@ public class BookController {
     }
 
     @GetMapping("/booklist")
-    public String getBooks(Model model) {
+    public String getBooks(Model model, Authentication authentication) {
+        boolean isAdmin = authentication != null
+                && authentication.getAuthorities().stream()
+                        .anyMatch(authority -> "ROLE_ADMIN".equals(authority.getAuthority()));
+        String username = authentication != null ? authentication.getName() : "anonymous";
         model.addAttribute("books", repository.findAll());
+        model.addAttribute("isAdmin", isAdmin);
+        model.addAttribute("user", username);
         return "booklist"; // booklist.html
     }
 
