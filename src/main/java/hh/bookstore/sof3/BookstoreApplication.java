@@ -44,13 +44,13 @@ public class BookstoreApplication {
 
 			log.info("Save some sample users");
 			if (userRepository.findByUsername("john") == null) {
-				String passwordHash = passwordEncoder.encode("secret123");
-				userRepository.save(new AppUser("john", passwordHash, "john@example.com", "ROLE_USER"));
+				userRepository.save(new AppUser("john", "$2a$12$15.LEU..hgcOxxr4ZZviROvkogM3WHbKksMpzx.xwkchgx9wAbgXq",
+						"john@example.com", "ROLE_USER"));
 			}
 
 			if (userRepository.findByUsername("jonni") == null) {
-				String passwordHash = passwordEncoder.encode("diudiu");
-				userRepository.save(new AppUser("jonni", passwordHash, "jonniponni@example.com", "ROLE_ADMIN"));
+				userRepository.save(new AppUser("jonni", "$2a$12$z4tzXt6zKjNFZgBcZZVateXawRhl48cZ4SnaJqCElIl2zapT63S9u",
+						"jonniponni@example.com", "ROLE_ADMIN"));
 			}
 
 			log.info("Fetch all the books");
